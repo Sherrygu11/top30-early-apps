@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Top 30 美本早申信息对比</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <div class="brand-badge">🎓</div>
+      <span class="brand-text" data-i18n="brandText">Top 30 早申对比</span>
+    </div>
+    <div class="header-actions">
+      <button class="icon-btn lang-toggle" id="langToggle" title="切换到英文">EN</button>
+      <button class="icon-btn" id="themeToggle" title="切换深色/浅色模式">🌙</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="hero-eyebrow" data-i18n="heroEyebrow">📅 2026-2027 申请季（Fall 2027 入学）· 截止日期已更新确认</span>
+    <h1 data-i18n-html="heroTitleHtml">Top 30 美国大学<br /><span>早申（ED / EA / REA）</span>信息一览</h1>
+    <p data-i18n="heroDesc">集中对比 Top 30 院校的早申类型、截止日期、放榜时间与录取率，帮助你快速梳理早申策略。截止日期已对照各校官网及权威升学机构更新为 2026-2027 申请季（Fall 2027 入学）的最新确认信息；历史录取率数据（近三年）仍为示例参考。</p>
+
+    <div class="stat-row">
+      <div class="stat-card"><div class="num" id="statTotal">30</div><div class="lbl" data-i18n="statTotalLabel">收录院校数</div></div>
+      <div class="stat-card"><div class="num" id="statAvgEarly">--</div><div class="lbl" data-i18n="statAvgLabel">平均早申录取率</div></div>
+      <div class="stat-card"><div class="num" id="statBinding">--</div><div class="lbl" data-i18n="statBindingLabel">绑定 ED 院校数</div></div>
+      <div class="stat-card"><div class="num" id="statNoEarly">--</div><div class="lbl" data-i18n="statNoEarlyLabel">无早申计划院校</div></div>
+    </div>
+
+    <div class="timeline-note">
+      <span class="timeline-note-icon">📌</span>
+      <div data-i18n-html="timelineNoteHtml">
+        <b>时间说明：</b>页面中「截止日期」均指 <b>2026年</b>（今年秋季）提交申请的时间；「放榜时间」跨 <b>2026年12月～2027年上半年</b>；被录取学生将于 <b>2027年9月（Fall 2027）</b>正式入学 —— 即通常所说的「27Fall」或「2031届」。所有日期已在下方标注具体年份。
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="controls">
+    <div class="search-box">
+      <span class="icon">🔍</span>
+      <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="搜索学校名称或地区…" />
+    </div>
+    <div class="chip-row">
+      <button class="chip active" data-type="ALL" data-i18n="chipAll">全部</button>
+      <button class="chip" data-type="ED" data-i18n="chipED">ED 绑定</button>
+      <button class="chip" data-type="EA" data-i18n="chipEA">EA 非限制</button>
+      <button class="chip" data-type="REA" data-i18n="chipREA">REA 限制性</button>
+      <button class="chip" data-type="NONE" data-i18n="chipNONE">无早申</button>
+    </div>
+    <div class="view-toggle">
+      <button class="active" data-view="card">▦ <span data-i18n="viewCard">卡片</span></button>
+      <button data-view="table">☰ <span data-i18n="viewTable">表格</span></button>
+    </div>
+  </div>
+  <div class="result-count" id="resultCount"></div>
+</div>
+
+<main class="wrap">
+  <div class="card-grid" id="cardGrid"></div>
+
+  <div class="table-wrap" id="tableWrap" style="display:none;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th data-sort="rank"><span data-i18n="thRank">排名</span> <span class="arrow">▲</span></th>
+          <th data-sort="name"><span data-i18n="thSchool">学校</span> <span class="arrow"></span></th>
+          <th data-sort="type"><span data-i18n="thType">早申类型</span> <span class="arrow"></span></th>
+          <th data-sort="deadline"><span data-i18n="thDeadline">截止日期</span> <span class="arrow"></span></th>
+          <th data-sort="decision"><span data-i18n="thDecision">放榜时间</span> <span class="arrow"></span></th>
+          <th data-sort="earlyRate"><span data-i18n="thEarlyRate">早申录取率</span> <span class="arrow"></span></th>
+          <th data-sort="regularRate"><span data-i18n="thRegularRate">常规录取率</span> <span class="arrow"></span></th>
+          <th data-sort="overallRate"><span data-i18n="thOverallRate">总体录取率</span> <span class="arrow"></span></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap" id="footerText"></div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="i18n.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
