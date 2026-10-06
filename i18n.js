@@ -61,6 +61,18 @@ const UI_STRINGS = {
     modalHistoryEarly: "早申录取率",
     modalHistoryRegular: "常规录取率",
 
+    commentsTitle: "申请经验留言",
+    commentsLoading: "加载中…",
+    commentsEmpty: "还没有留言，来写第一条吧",
+    commentsUnavailable: "留言功能暂时不可用",
+    commentNickname: "昵称（可不填）",
+    commentPlaceholder: "分享你的申请经验或问题（最多 500 字）",
+    commentSubmit: "发布留言",
+    commentSending: "发布中…",
+    commentError: "发布失败，请稍后再试",
+    commentRateLimit: "留言太频繁了，请稍后再试",
+    commentAnonymous: "匿名",
+
     footerHtml: (year) => `© ${year} Top 30 早申对比 · 截止日期已更新为 2026-2027 申请季（Fall 2027 入学）确认信息；录取率历史数据仍为示例参考，具体请以各校官网最新公布信息为准`,
   },
 
@@ -121,6 +133,18 @@ const UI_STRINGS = {
     modalHistoryYear: "Year",
     modalHistoryEarly: "Early Rate",
     modalHistoryRegular: "Regular Rate",
+
+    commentsTitle: "Application Notes",
+    commentsLoading: "Loading…",
+    commentsEmpty: "No comments yet — be the first to share",
+    commentsUnavailable: "Comments are temporarily unavailable",
+    commentNickname: "Nickname (optional)",
+    commentPlaceholder: "Share your experience or ask a question (max 500 characters)",
+    commentSubmit: "Post comment",
+    commentSending: "Posting…",
+    commentError: "Could not post — please try again later",
+    commentRateLimit: "You're posting too fast — please wait a bit",
+    commentAnonymous: "Anonymous",
 
     footerHtml: (year) => `© ${year} Top 30 Early Apps · Deadlines updated to confirmed 2026-2027 cycle (Fall 2027 entry) information; acceptance-rate history remains illustrative sample data — please verify with each school's official site`,
   },

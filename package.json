@@ -1,0 +1,12 @@
+{
+  "name": "top30-early-apps",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Top 30 US early application comparison site",
+  "scripts": {
+    "seed": "node --env-file=.env.local scripts/seed.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.10.0"
+  }
+}

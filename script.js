@@ -231,8 +231,106 @@
       </div>
       ${renderHistoryTable(s)}
       <div class="modal-notes">💡 ${loc(s, "notes")}</div>
+      <div class="comments">
+        <div class="modal-section-title">${t("commentsTitle")}</div>
+        <div class="comment-list" id="commentList">${t("commentsLoading")}</div>
+        <form class="comment-form" id="commentForm">
+          <input type="text" id="commentNickname" maxlength="30" placeholder="${t("commentNickname")}" />
+          <textarea id="commentMessage" maxlength="500" rows="3" required placeholder="${t("commentPlaceholder")}"></textarea>
+          <button type="submit" id="commentSubmit">${t("commentSubmit")}</button>
+          <div class="comment-status" id="commentStatus"></div>
+        </form>
+      </div>
     `;
     els.modalOverlay.classList.add("open");
+    initComments(s);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function renderCommentList(items) {
+    const box = document.getElementById("commentList");
+    if (!box) return;
+    if (!items.length) {
+      box.textContent = t("commentsEmpty");
+      return;
+    }
+    const locale = state.lang === "en" ? "en-US" : "zh-CN";
+    box.innerHTML = items
+      .map((c) => {
+        const name = c.nickname === "Anonymous" ? t("commentAnonymous") : c.nickname;
+        const date = new Date(c.createdAt).toLocaleDateString(locale);
+        return `<div class="comment-item"><div class="comment-meta"><b>${escapeHtml(name)}</b> · ${date}</div><div class="comment-body">${escapeHtml(c.message)}</div></div>`;
+      })
+      .join("");
+  }
+
+  async function initComments(s) {
+    const school = s.nameEn;
+    const listBox = document.getElementById("commentList");
+    const form = document.getElementById("commentForm");
+    const status = document.getElementById("commentStatus");
+
+    async function load() {
+      try {
+        const r = await fetch(`/api/comments?school=${encodeURIComponent(school)}`);
+        if (!r.ok) throw new Error("bad status");
+        renderCommentList(await r.json());
+      } catch (e) {
+        if (listBox) listBox.textContent = t("commentsUnavailable");
+        if (form) form.style.display = "none";
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("commentSubmit");
+      const msgEl = document.getElementById("commentMessage");
+      btn.disabled = true;
+      btn.textContent = t("commentSending");
+      status.textContent = "";
+      try {
+        const r = await fetch("/api/comments", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            school,
+            nickname: document.getElementById("commentNickname").value,
+            message: msgEl.value,
+          }),
+        });
+        if (r.status === 429) status.textContent = t("commentRateLimit");
+        else if (!r.ok) status.textContent = t("commentError");
+        else {
+          msgEl.value = "";
+          await load();
+        }
+      } catch (err) {
+        status.textContent = t("commentError");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = t("commentSubmit");
+      }
+    });
+
+    load();
+  }
+
+  // 优先使用数据库中的学校数据；接口不可用时继续使用内置的 data.js 数据
+  async function loadSchoolsFromApi() {
+    try {
+      const r = await fetch("/api/schools");
+      if (!r.ok) return;
+      const remote = await r.json();
+      if (!Array.isArray(remote) || remote.length === 0) return;
+      SCHOOL_DATA.splice(0, SCHOOL_DATA.length, ...remote);
+      renderStats();
+      render();
+    } catch (e) {
+      /* 保持内置数据 */
+    }
   }
 
   function closeModal() {
@@ -354,6 +452,7 @@
     renderStats();
     setView("card");
     render();
+    loadSchoolsFromApi();
   }
 
   document.addEventListener("DOMContentLoaded", init);

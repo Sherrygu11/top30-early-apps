@@ -678,6 +678,70 @@ table.data-table {
   margin-top: 6px;
 }
 
+/* ---------- Comments ---------- */
+.comments { margin-top: 6px; }
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.comment-item {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 9px 12px;
+}
+
+.comment-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 2px; }
+.comment-meta b { color: var(--text); }
+.comment-body { color: var(--text); white-space: pre-wrap; word-break: break-word; }
+
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.comment-form button {
+  align-self: flex-start;
+  border: none;
+  background: var(--accent-grad);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13.5px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.comment-form button:disabled { opacity: 0.6; cursor: default; }
+.comment-status { font-size: 12.5px; color: var(--ed); min-height: 1em; }
+
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--border);
