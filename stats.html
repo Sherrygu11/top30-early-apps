@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>数据统计 · Top 30 早申对比</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎓</text></svg>" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="stats.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-badge">🎓</div>
+      <span class="brand-text" data-i18n="brandText">Top 30 早申对比</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" data-i18n="navHome">首页</a>
+      <a href="stats.html" class="active" data-i18n="navStats">数据统计</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn lang-toggle" id="langToggle" title="切换到英文">EN</button>
+      <button class="icon-btn" id="themeToggle" title="切换深色/浅色模式">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap stats-page" id="statsRoot">
+  <section class="stats-head">
+    <div>
+      <h1 data-i18n="stHeading">数据统计</h1>
+      <p class="stats-sub" data-i18n="stSubtitle">把数据库里的学校数据和访客留言汇总成数字与图表</p>
+    </div>
+    <div class="stats-tools">
+      <span class="updated" id="updatedAt"></span>
+      <div class="view-toggle" role="group">
+        <button class="active" data-view="chart"><span data-i18n="stViewChart">图表</span></button>
+        <button data-view="table"><span data-i18n="stViewTable">表格</span></button>
+      </div>
+      <button class="tool-btn" id="refreshBtn" data-i18n="stRefresh">刷新</button>
+    </div>
+  </section>
+
+  <div id="statsError" class="stats-error" hidden>
+    <span data-i18n="stError">数据加载失败，请检查网络后重试。</span>
+    <button class="tool-btn" id="retryBtn" data-i18n="stRetry">重试</button>
+  </div>
+
+  <div id="statsBody" class="viz is-loading">
+    <section class="kpi-row" id="kpiRow"></section>
+
+    <div class="card-row">
+      <section class="stat-panel">
+        <h2 data-i18n="stTypeTitle">早申类型分布</h2>
+        <p class="panel-desc" data-i18n="stTypeDesc">各类早申计划的院校数量</p>
+        <div class="chart-view" id="typeChart"></div>
+        <div class="table-view" id="typeTable"></div>
+      </section>
+
+      <section class="stat-panel">
+        <h2 data-i18n="stTrendTitle">近三年平均录取率</h2>
+        <p class="panel-desc" data-i18n="stTrendDesc">所有院校的平均值（%）；早申只统计设有早申的院校</p>
+        <div class="chart-view" id="trendChart"></div>
+        <div class="table-view" id="trendTable"></div>
+      </section>
+    </div>
+
+    <section class="stat-panel">
+      <div class="panel-head">
+        <h2 data-i18n="stRankTitle">排行榜</h2>
+        <div class="seg-tabs" id="rankTabs" role="tablist"></div>
+      </div>
+      <p class="panel-desc" id="rankDesc"></p>
+      <div class="chart-view" id="rankChart"></div>
+      <div class="table-view" id="rankTable"></div>
+    </section>
+
+    <section class="stat-panel">
+      <h2 data-i18n="stCommTitle">留言活跃度</h2>
+      <p class="panel-desc" data-i18n="stCommDesc">近 30 天每日留言数（UTC 日期）</p>
+      <div class="chart-view" id="commChart"></div>
+      <div class="table-view" id="commTable"></div>
+    </section>
+
+    <p class="stats-note" data-i18n="stNote">提示：历史录取率为示例数据，仅用于展示趋势；留言来自网站访客。</p>
+  </div>
+</main>
+
+<div id="tip" class="viz-tip" role="status" hidden></div>
+
+<footer class="site-footer">
+  <div class="wrap" id="footerText"></div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="stats.js"></script>
+</body>
+</html>

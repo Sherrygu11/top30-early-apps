@@ -4,6 +4,7 @@
   "private": true,
   "description": "Top 30 US early application comparison site",
   "scripts": {
+    "dev": "node --env-file=.env.local dev-server.js",
     "seed": "node --env-file=.env.local scripts/seed.js"
   },
   "dependencies": {
