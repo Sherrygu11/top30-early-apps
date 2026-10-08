@@ -345,10 +345,10 @@
   }
 
   function initTheme() {
-    // 默认使用浅色主题，不跟随系统深色模式，避免首次打开就显示很暗的背景
+    // 默认使用深色主题；只有访客手动切换成浅色后才会记住浅色
     let saved = null;
-    try { saved = localStorage.getItem("theme"); } catch (e) {}
-    document.documentElement.setAttribute("data-theme", saved === "dark" ? "dark" : "light");
+    try { saved = localStorage.getItem("siteTheme"); } catch (e) {}
+    document.documentElement.setAttribute("data-theme", saved === "light" ? "light" : "dark");
     updateThemeIcon();
   }
 
@@ -361,7 +361,7 @@
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
     const next = isDark ? "light" : "dark";
     document.documentElement.setAttribute("data-theme", next);
-    try { localStorage.setItem("theme", next); } catch (e) {}
+    try { localStorage.setItem("siteTheme", next); } catch (e) {}
     updateThemeIcon();
   }
 

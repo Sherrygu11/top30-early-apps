@@ -1,15 +1,15 @@
 /* ---------- 图表配色（来自验证过的默认调色板：蓝=系列1，橙=系列2）---------- */
 .viz {
-  --viz-s1: #2a78d6;
-  --viz-s2: #eb6834;
+  --viz-s1: #3987e5;
+  --viz-s2: #d95926;
   --viz-grid: color-mix(in srgb, var(--border) 85%, transparent);
   --viz-axis: color-mix(in srgb, var(--text-muted) 45%, transparent);
   --viz-surface: var(--card-bg);
 }
 
-:root[data-theme="dark"] .viz {
-  --viz-s1: #3987e5;
-  --viz-s2: #d95926;
+:root[data-theme="light"] .viz {
+  --viz-s1: #2a78d6;
+  --viz-s2: #eb6834;
 }
 
 /* ---------- 页面头部 ---------- */
